@@ -13,11 +13,18 @@ var View = function(game){
     View.prototype.onGameOver = function(event){
         $(".bar").hide();
         $(".game-over").removeClass("hidden");
+        
         var resultText;
         if (event.result === "lose"){
             resultText = "You lost";            
+        } else {
+            resultText = "You won!!!";
         }
         $(".game-result").text(resultText);
+        
+        if (event.reason){
+            $(".game-result-reason").text(event.reason);
+        }
     };
 };
 

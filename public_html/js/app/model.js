@@ -1,7 +1,7 @@
 var Game = function(){
   
     this.resources = {
-        money: 0,
+        money: 1000,
         energy: 0,
         water: 0,
         food: 0,
@@ -25,8 +25,12 @@ var Game = function(){
         }
     };
     
-    Game.prototype.loseGame = function(){
-        this.notify("onGameOver", {result: "lose"});
+    Game.prototype.lose = function(reason){
+        this.notify("onGameOver", {result: "lose", reason: reason});
+    };
+    
+    Game.prototype.win = function(reason){
+        this.notify("onGameOver", {result: "win", reason: reason});
     };
     
     Game.prototype.addListener = function(listener){
