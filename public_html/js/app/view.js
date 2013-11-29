@@ -9,6 +9,13 @@ function View(game) {
         $(".game-state-food").text(game.resources.food);
         $(".game-state-water").text(game.resources.water);
         $(".game-state-dioxide").text(game.resources.dioxide);
+        
+        var cardTable = $(".game-available-cards");
+        var cards = game.deck().availableCards();
+        for(var index in cards){
+            var card = cards[index];
+            cardTable.append($("<p>").text(card.name()));
+        }
     };
     
     this.onGameOver = function(event) {

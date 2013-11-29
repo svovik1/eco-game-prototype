@@ -1,6 +1,26 @@
+function Card(card){
+    this.name = function(){
+        return card.name;
+    };
+};
+
+function Deck(){
+    var cards = new Array();
+    
+    this.availableCards = function(){
+        return cards;
+    };
+    
+    this.putCard = function(card){
+        cards.push(card);
+    };
+};
+
+
 function Game(){
   
     var self = this;
+    var deck = new Deck();
     
     this.resources = {
         money: 1000,
@@ -56,6 +76,10 @@ function Game(){
             }
         }
     };
+    
+    this.deck = function(){
+        return deck;
+    };
 };
 
 function Rule(rule){
@@ -68,3 +92,4 @@ function Rule(rule){
         rule.effect.call(rule, game);
     };
 };
+
