@@ -1,4 +1,4 @@
-var Game = function(){
+function Game(){
   
     this.resources = {
         money: 1000,
@@ -8,20 +8,20 @@ var Game = function(){
         dioxide: 0
     };
     
-    this.listeners = new Array();
-    this.rules = new Array();
+    var listeners = new Array();
+    var rules = new Array();
   
-    Game.prototype.start = function(){
+    this.start = function(){
         
     };
     
-    Game.prototype.completeMove = function(){
+    this.completeMove = function(){
         this.applyRules();
     };
     
-    Game.prototype.applyRules = function(){
-        for(var i = 0; i < this.rules.length; i++){
-            var rule = this.rules[i];
+    this.applyRules = function(){
+        for(var i = 0; i < rules.length; i++){
+            var rule = rules[i];
             
             if (rule.isApplicable(this)){
                 rule.execute(this);
@@ -29,27 +29,27 @@ var Game = function(){
         }
     };
     
-    Game.prototype.lose = function(reason){
-        this.notify("onGameOver", {result: "lose", reason: reason});
+    this.lose = function(reason){
+        notify("onGameOver", {result: "lose", reason: reason});
     };
     
-    Game.prototype.win = function(reason){
-        this.notify("onGameOver", {result: "win", reason: reason});
+    this.win = function(reason){
+        notify("onGameOver", {result: "win", reason: reason});
     };
     
-    Game.prototype.addListener = function(listener){
-        this.listeners.push(listener);
+    this.addListener = function(listener){
+        listeners.push(listener);
     };
     
-    Game.prototype.addRule = function(rule){
-        this.rules.push(rule);
+    this.addRule = function(rule){
+        rules.push(rule);
     };
     
-    Game.prototype.notify = function(method, event){
-        for(var i = 0; i < this.listeners.length; i++){
-            var l = this.listeners[i];
-            if (l[method]){
-                l[method].call(l, event);
+    var notify = function(method, event){
+        for(var i = 0; i < listeners.length; i++){
+            var listener = listeners[i];
+            if (listener[method]){
+                listener[method].call(listener, event);
             }
         }
     };

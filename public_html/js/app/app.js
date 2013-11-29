@@ -22,7 +22,9 @@ $(document).ready(function() {
             });
     game.addRule(lackOfResourcesLosesGame);
     game.addRule(dioxideBelowThresholdRule);
+    
     var view = new View(game);
+    
     game.start();
     view.render();
 });
