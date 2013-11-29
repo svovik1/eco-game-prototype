@@ -1,11 +1,13 @@
 function Game(){
   
+    var self = this;
+    
     this.resources = {
         money: 1000,
-        energy: 0,
-        water: 0,
-        food: 0,
-        dioxide: 0
+        energy: 1000,
+        water: 1000,
+        food: 1000,
+        dioxide: 100
     };
     
     var listeners = new Array();
@@ -16,15 +18,16 @@ function Game(){
     };
     
     this.completeMove = function(){
-        this.applyRules();
+        applyRules();
+        notify("onFinishMove");
     };
     
-    this.applyRules = function(){
+    var applyRules = function(){
         for(var i = 0; i < rules.length; i++){
             var rule = rules[i];
             
-            if (rule.isApplicable(this)){
-                rule.execute(this);
+            if (rule.isApplicable(self)){
+                rule.execute(self);
             }
         }
     };
@@ -55,15 +58,13 @@ function Game(){
     };
 };
 
-var Rule = function(isApplicableCallback, executeCallback){
-    this.isApplicableCallback = isApplicableCallback;
-    this.executeCallback = executeCallback;
+function Rule(rule){
     
-    Rule.prototype.isApplicable = function(game){
-        return this.isApplicableCallback.call(this, game);
+    this.isApplicable = function(game){
+        return rule.condition.call(rule, game);
     };
     
-    Rule.prototype.execute = function(game){
-        this.executeCallback.call(this, game);
+    this.execute = function(game){
+        rule.effect.call(rule, game);
     };
 };

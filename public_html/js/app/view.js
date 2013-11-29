@@ -28,6 +28,10 @@ function View(game) {
         }
     };
     
+    this.onFinishMove = function(event){
+        this.render();
+    };
+    
     game.addListener(this);
 
 }
