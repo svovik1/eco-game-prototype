@@ -12,6 +12,10 @@ var Game = function(){
     this.rules = new Array();
   
     Game.prototype.start = function(){
+        
+    };
+    
+    Game.prototype.completeMove = function(){
         this.applyRules();
     };
     

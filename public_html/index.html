@@ -10,26 +10,35 @@
         <link rel="stylesheet" href="css/game.css">
     </head>
     <body>
-        <div class="bar">
-            Money: 
-            <span class="game-state-money"></span>
-            Energy: 
-            <span class="game-state-energy"></span>
-            Water: 
-            <span class="game-state-water"></span>
-            Food: 
-            <span class="game-state-food"></span>
-            Dioxide: 
-            <span class="game-state-dioxide"></span>
+
+        <div class="game-screen">
+            <div class="bar">
+                Money: 
+                <span class="game-state-money"></span>
+                Energy: 
+                <span class="game-state-energy"></span>
+                Water: 
+                <span class="game-state-water"></span>
+                Food: 
+                <span class="game-state-food"></span>
+                Dioxide: 
+                <span class="game-state-dioxide"></span>
+            </div>
+
+            <div class="controls">
+                <button class="game-move-complete">Complete move</button>
+            </div>
         </div>
-        
-        <div class="hidden game-over">
-            <h1>Game Over</h1>
-            <h1 class="game-result"></h1>
-            <p class="game-result-reason"></p>
+
+        <div class="hidden game-result-screen">
+            <div class="game-over">
+                <h1>Game Over</h1>
+                <h1 class="game-result"></h1>
+                <p class="game-result-reason"></p>
+            </div>
         </div>
-        
-        
+
+
         <script src="js/app/app.js"></script>
     </body>
 </html>

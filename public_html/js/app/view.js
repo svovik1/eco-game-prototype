@@ -1,6 +1,10 @@
 var View = function(game){
   
     game.addListener(this);
+    
+    $(".game-move-complete").click(function(){
+       game.completeMove(); 
+    });
   
     View.prototype.render = function(){
         $(".game-state-money").text(game.resources.money);
@@ -11,8 +15,8 @@ var View = function(game){
     };
     
     View.prototype.onGameOver = function(event){
-        $(".bar").hide();
-        $(".game-over").removeClass("hidden");
+        $(".game-screen").hide();
+        $(".game-result-screen").removeClass("hidden");
         
         var resultText;
         if (event.result === "lose"){
