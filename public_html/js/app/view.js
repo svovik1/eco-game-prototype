@@ -4,12 +4,19 @@ function View(game) {
     });
     
     this.render = function() {
+        this.renderResources();
+        this.renderCards();
+    };
+    
+    this.renderResources = function(){
         $(".game-state-money").text(game.resources.money);
         $(".game-state-energy").text(game.resources.energy);
         $(".game-state-food").text(game.resources.food);
         $(".game-state-water").text(game.resources.water);
-        $(".game-state-dioxide").text(game.resources.dioxide);
-        
+        $(".game-state-dioxide").text(game.resources.dioxide);  
+    };
+    
+    this.renderCards = function(){
         var cardTable = $(".game-available-cards");
         $(".card", cardTable).remove();
         var cards = game.deck().availableCards();
