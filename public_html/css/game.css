@@ -51,3 +51,15 @@ body {
   margin-right: 2px;
   padding: 5px;
 }
+/* line 54, C:\Users\Dmytro\Documents\NetBeansProjects\GameProto\public_html\less\game.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Dmytro\/Documents\/NetBeansProjects\/GameProto\/public_html\/less\/game\.less}line{font-family:\0000354}}
+.card-name {
+  display: block;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+/* line 60, C:\Users\Dmytro\Documents\NetBeansProjects\GameProto\public_html\less\game.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Dmytro\/Documents\/NetBeansProjects\/GameProto\/public_html\/less\/game\.less}line{font-family:\0000360}}
+.card-description {
+  color: #666666;
+}

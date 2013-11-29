@@ -2,6 +2,14 @@ function Card(card){
     this.name = function(){
         return card.name;
     };
+    
+    this.description = function(){
+        return card.description;
+    };
+    
+    this.effect = function(game){
+        card.effect.call(card, game);
+    };
 };
 
 function Deck(){
@@ -57,9 +65,23 @@ function Game(){
         move = new Move();
     };
     
-    this.completeMove = function(){
+    this.completeMove = function(){  
+        applyCards();
         applyRules();
+        startNewMove();
         notify("onFinishMove");
+    };   
+    
+    var startNewMove = function(){
+        move = new Move();
+    };
+    
+    var applyCards = function(){
+        var cards = move.cardsOnHands();
+        for(var i in cards){
+            var card = cards[i];
+            card.effect(self);
+        }
     };
     
     var applyRules = function(){

@@ -24,17 +24,14 @@ function View(game) {
     this.renderDeck = function(){
         var cardTable = $(".game-available-cards");
         $(".card", cardTable).remove();
-        var cards = game.deck().availableCards();
-        var cardTemplate = $($("#card-template").html());
+        var cards = game.deck().availableCards();        
         for(var index in cards){
             var card = cards[index];
-            var cardNode = cardTemplate.clone();
-            cardNode.data("card", card);
+            var cardNode = renderCard(card);
             cardNode.click(function(){
                 var card = $(this).data("card");
                 game.pickCard(card);
             });
-            $(".card-name", cardNode).text(card.name());
             cardTable.prepend(cardNode);
         }
     };
@@ -42,20 +39,25 @@ function View(game) {
     this.renderCardsOnHands = function(){
         var cardTable = $(".game-cards-on-hands");
         $(".card", cardTable).remove();
-        var cards = game.currentMove().cardsOnHands();
-        var cardTemplate = $($("#card-template").html());
+        var cards = game.currentMove().cardsOnHands();        
         for(var index in cards){
-            var card = cards[index];
-            var cardNode = cardTemplate.clone();
-            cardNode.data("card", card);
+            var card = cards[index];            
+            var cardNode = renderCard(card);            
             cardNode.click(function(){
                 var card = $(this).data("card");
                 game.returnCard(card);
-            });
-            $(".card-name", cardNode).text(card.name());
+            });            
             cardTable.prepend(cardNode);
         }
     };
+    
+    var renderCard = function(card){
+        var template = $($("#card-template").html()).clone();
+        $(".card-name", template).text(card.name());
+        $(".card-description", template).text(card.description());
+        template.data("card", card);
+        return template;
+    }
     
     this.onGameOver = function(event) {
         $(".game-screen").hide();
