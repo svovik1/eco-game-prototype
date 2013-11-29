@@ -1,3 +1,53 @@
+/* line 9, C:\Users\Dmytro\Documents\NetBeansProjects\GameProto\public_html\less\game.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Dmytro\/Documents\/NetBeansProjects\/GameProto\/public_html\/less\/game\.less}line{font-family:\000039}}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier';
+  color: #333333;
+}
+/* line 16, C:\Users\Dmytro\Documents\NetBeansProjects\GameProto\public_html\less\game.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Dmytro\/Documents\/NetBeansProjects\/GameProto\/public_html\/less\/game\.less}line{font-family:\0000316}}
 .hidden {
-    visibility: hidden;
+  display: none;
+}
+/* line 20, C:\Users\Dmytro\Documents\NetBeansProjects\GameProto\public_html\less\game.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Dmytro\/Documents\/NetBeansProjects\/GameProto\/public_html\/less\/game\.less}line{font-family:\0000320}}
+.clearfix {
+  clear: both;
+}
+/* line 24, C:\Users\Dmytro\Documents\NetBeansProjects\GameProto\public_html\less\game.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Dmytro\/Documents\/NetBeansProjects\/GameProto\/public_html\/less\/game\.less}line{font-family:\0000324}}
+.score-bar {
+  border: 1px solid #a9a9a9;
+  background-color: #d3d3d3;
+  padding: 2px;
+}
+/* line 29, C:\Users\Dmytro\Documents\NetBeansProjects\GameProto\public_html\less\game.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Dmytro\/Documents\/NetBeansProjects\/GameProto\/public_html\/less\/game\.less}line{font-family:\0000329}}
+.score-bar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* line 34, C:\Users\Dmytro\Documents\NetBeansProjects\GameProto\public_html\less\game.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Dmytro\/Documents\/NetBeansProjects\/GameProto\/public_html\/less\/game\.less}line{font-family:\0000334}}
+.score-bar ul li {
+  border: 1px solid #a9a9a9;
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  font-weight: bold;
+}
+/* line 44, C:\Users\Dmytro\Documents\NetBeansProjects\GameProto\public_html\less\game.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Dmytro\/Documents\/NetBeansProjects\/GameProto\/public_html\/less\/game\.less}line{font-family:\0000344}}
+.card {
+  display: inline-block;
+  border: 1px solid #a9a9a9;
+  border-radius: 5px;
+  width: 160px;
+  vertical-align: top;
+  margin-right: 2px;
+  padding: 5px;
 }

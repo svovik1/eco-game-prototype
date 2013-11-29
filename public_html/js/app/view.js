@@ -11,10 +11,14 @@ function View(game) {
         $(".game-state-dioxide").text(game.resources.dioxide);
         
         var cardTable = $(".game-available-cards");
+        $(".card", cardTable).remove();
         var cards = game.deck().availableCards();
+        var cardTemplate = $($("#card-template").html());
         for(var index in cards){
             var card = cards[index];
-            cardTable.append($("<p>").text(card.name()));
+            var cardNode = cardTemplate.clone();
+            $(".card-name", cardNode).text(card.name());
+            cardTable.prepend(cardNode);
         }
     };
     

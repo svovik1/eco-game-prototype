@@ -1,0 +1,52 @@
+.rounded-corners(@radius: 5px){
+    border-radius: @radius;
+}
+
+@fore-color: #333;
+@border-color: darkgray;
+@fill-color: lightgray;
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier';
+    color: @fore-color;
+}
+
+.hidden {
+    display: none;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.score-bar {
+    border: 1px solid @border-color;
+    background-color: @fill-color;
+    padding: 2px;
+    
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        
+        li {
+            border: 1px solid @border-color;
+            padding: 10px;
+            .rounded-corners;
+            display: inline-block;
+            font-weight: bold;
+        }
+    }
+}
+
+.card {
+    display: inline-block;
+    border: 1px solid @border-color;
+    .rounded-corners;
+    width: 160px;
+    vertical-align: top;
+    margin-right: 2px;
+    padding: 5px;
+}

@@ -14,21 +14,23 @@
     <body>
 
         <div class="game-screen">
-            <div class="bar">
-                Money: 
-                <span class="game-state-money"></span>
-                Energy: 
-                <span class="game-state-energy"></span>
-                Water: 
-                <span class="game-state-water"></span>
-                Food: 
-                <span class="game-state-food"></span>
-                Dioxide: 
-                <span class="game-state-dioxide"></span>
+            <div class="score-bar">
+                <ul>
+                    <li>Money: 
+                        <span class="game-state-money"></span></li>
+                    <li>Energy: 
+                        <span class="game-state-energy"></span></li>
+                    <li>Water: 
+                        <span class="game-state-water"></span></li>
+                    <li>Food: 
+                        <span class="game-state-food"></span></li>
+                    <li>Dioxide: 
+                        <span class="game-state-dioxide"></span></li>
+                </ul>
             </div>
-            
+
             <div class="game-available-cards">
-                
+
             </div>
 
             <div class="controls">
@@ -43,6 +45,14 @@
                 <p class="game-result-reason"></p>
             </div>
         </div>
+
+        <script id="card-template" type="text/html">
+                    <p class="card">
+                        <span class="card-name"></span>
+                        <span class="card-description"></span>
+                        <span class="card-effect"></span>
+                    </p>
+        </script>
 
 
         <script src="js/app/app.js"></script>
