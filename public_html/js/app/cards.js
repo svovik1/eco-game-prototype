@@ -16,6 +16,13 @@ var cards = {
             game.resources.energy += 100;
             game.resources.dioxide -= 20;
         }
+    }),
+    takeMoneyAndGoAway: new Card({
+        name: "Take Money and Get Out",
+        description: "Take 1000 of Money and migrate to other Country",
+        effect: function(game){
+            game.resources.money -= 1000;            
+        }
     })
 };
 

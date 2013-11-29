@@ -6,6 +6,7 @@ $(document).ready(function() {
     
     game.deck().putCard(cards.modernizeManufactures);
     game.deck().putCard(cards.atomicEnergy);
+    game.deck().putCard(cards.takeMoneyAndGoAway);
     
     var view = new View(game);
     
