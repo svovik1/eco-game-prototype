@@ -14,13 +14,33 @@ function Deck(){
     this.putCard = function(card){
         cards.push(card);
     };
+    
+    this.removeCard = function(card){
+        cards.splice(cards.indexOf(card), 1);
+    };
 };
 
+function Move(){
+    var cards = new Array();
+    
+    this.takeCard = function(card){
+        cards.push(card);
+    };
+    
+    this.cardsOnHands = function(){
+        return cards;
+    };
+    
+    this.returnCard = function(card){
+        cards.splice(cards.indexOf(card), 1);
+    };
+}   
 
 function Game(){
   
     var self = this;
     var deck = new Deck();
+    var move;
     
     this.resources = {
         money: 1000,
@@ -34,7 +54,7 @@ function Game(){
     var rules = new Array();
   
     this.start = function(){
-        
+        move = new Move();
     };
     
     this.completeMove = function(){
@@ -80,6 +100,22 @@ function Game(){
     this.deck = function(){
         return deck;
     };
+    
+    this.pickCard = function(card){
+        deck.removeCard(card);
+        move.takeCard(card);
+        notify("onCardPick");
+    };
+    
+    this.returnCard = function(card){
+        move.returnCard(card);
+        deck.putCard(card);
+        notify("onCardPick");
+    };
+    
+    this.currentMove = function(){
+        return move;
+    };
 };
 
 function Rule(rule){
@@ -92,4 +128,6 @@ function Rule(rule){
         rule.effect.call(rule, game);
     };
 };
+
+
 

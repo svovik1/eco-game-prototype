@@ -17,6 +17,11 @@ function View(game) {
     };
     
     this.renderCards = function(){
+        this.renderDeck();
+        this.renderCardsOnHands();
+    };
+    
+    this.renderDeck = function(){
         var cardTable = $(".game-available-cards");
         $(".card", cardTable).remove();
         var cards = game.deck().availableCards();
@@ -24,6 +29,29 @@ function View(game) {
         for(var index in cards){
             var card = cards[index];
             var cardNode = cardTemplate.clone();
+            cardNode.data("card", card);
+            cardNode.click(function(){
+                var card = $(this).data("card");
+                game.pickCard(card);
+            });
+            $(".card-name", cardNode).text(card.name());
+            cardTable.prepend(cardNode);
+        }
+    };
+    
+    this.renderCardsOnHands = function(){
+        var cardTable = $(".game-cards-on-hands");
+        $(".card", cardTable).remove();
+        var cards = game.currentMove().cardsOnHands();
+        var cardTemplate = $($("#card-template").html());
+        for(var index in cards){
+            var card = cards[index];
+            var cardNode = cardTemplate.clone();
+            cardNode.data("card", card);
+            cardNode.click(function(){
+                var card = $(this).data("card");
+                game.returnCard(card);
+            });
             $(".card-name", cardNode).text(card.name());
             cardTable.prepend(cardNode);
         }
@@ -48,6 +76,10 @@ function View(game) {
     
     this.onFinishMove = function(event){
         this.render();
+    };
+    
+    this.onCardPick = function(){
+        this.renderCards();
     };
     
     game.addListener(this);
