@@ -16,15 +16,7 @@ var rules = {
             },
             effect: function(game) {
                 game.lose("You have lack of some vital resources");
-            }}),
-    debugRule: new Rule({
-            condition: function(game) {
-                return true;
-            },
-            effect: function(game) {
-                game.resources.dioxide -= 10;
-            }
-        })
+            }})    
 };
 
 

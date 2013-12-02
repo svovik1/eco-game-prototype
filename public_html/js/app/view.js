@@ -1,9 +1,15 @@
 function View(game) {
+    var self = this;
     $(".game-move-complete").click(function() {
+        self.hideNotifications();
         game.completeMove();
     });
     
-    this.render = function() {
+    this.hideNotifications = function(){
+        $(".notification").hide();
+    };
+    
+    this.render = function() {        
         this.renderMoveNumber();
         this.renderResources();
         this.renderCards();
@@ -79,6 +85,13 @@ function View(game) {
         if (event.reason) {
             $(".game-result-reason").text(event.reason);
         }
+    };
+    
+    this.onDisaster = function(event){
+        var disaster = event.disaster;
+        $(".game-disaster-name").text(disaster.name());
+        $(".game-disaster-description").text(disaster.description());
+        $(".game-disaster").show();        
     };
     
     this.onFinishMove = function(event){
