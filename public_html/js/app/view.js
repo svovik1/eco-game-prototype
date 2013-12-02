@@ -4,8 +4,13 @@ function View(game) {
     });
     
     this.render = function() {
+        this.renderMoveNumber();
         this.renderResources();
         this.renderCards();
+    };
+    
+    this.renderMoveNumber = function(){
+      $(".game-move-number").text(game.moveNumber());  
     };
     
     this.renderResources = function(){

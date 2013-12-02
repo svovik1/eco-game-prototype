@@ -49,6 +49,8 @@ function Game(){
     var self = this;
     var deck = new Deck();
     var move;
+    var gameOver = false;
+    var movesCompleted = new Array();
     
     this.resources = {
         money: 1000,
@@ -65,14 +67,17 @@ function Game(){
         move = new Move();
     };
     
-    this.completeMove = function(){  
+    this.completeMove = function(){          
         applyCards();
-        applyRules();
-        startNewMove();
+        checkRules();
+        if(!gameOver){
+            startNewMove();
+        }
         notify("onFinishMove");
     };   
     
     var startNewMove = function(){
+        movesCompleted.push(move);
         move = new Move();
     };
     
@@ -84,7 +89,7 @@ function Game(){
         }
     };
     
-    var applyRules = function(){
+    var checkRules = function(){
         for(var i = 0; i < rules.length; i++){
             var rule = rules[i];
             
@@ -95,10 +100,12 @@ function Game(){
     };
     
     this.lose = function(reason){
+        gameOver = true;
         notify("onGameOver", {result: "lose", reason: reason});
     };
     
     this.win = function(reason){
+        gameOver = true;
         notify("onGameOver", {result: "win", reason: reason});
     };
     
@@ -137,6 +144,10 @@ function Game(){
     
     this.currentMove = function(){
         return move;
+    };
+    
+    this.moveNumber = function(){
+        return movesCompleted.length + 1;
     };
 };
 
