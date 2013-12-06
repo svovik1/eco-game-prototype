@@ -1,6 +1,5 @@
 $(document).ready(function() {
-    var translator = new Translator();
-    
+
     var game = new Game({
         rules: rules,
         cards: cards,

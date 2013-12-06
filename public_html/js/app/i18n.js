@@ -24,4 +24,6 @@ function Translator(){
     t = function(key){
         return translator.get.call(translator, key);
     };
-}
+};
+
+var translator = new Translator();
