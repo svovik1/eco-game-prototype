@@ -12,8 +12,13 @@ $(document).ready(function() {
     view.render();   
     
     $(".i18n").each(function(){
-        var i18nEl = $(this);
-        i18nEl.text(t(i18nEl.text()));
+        var el = $(this);
+        el.text(t(el.text()));        
+    });
+    
+    $(".i18n-title").each(function(){
+        var el = $(this);
+        el.attr("title", t(el.attr("title")));
     });
     
 });
