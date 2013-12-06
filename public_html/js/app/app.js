@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    var translator = new Translator();
+    
     var game = new Game({
         rules: rules,
         cards: cards,
@@ -8,7 +10,8 @@ $(document).ready(function() {
     var view = new View(game);
     
     game.start();
-    view.render();
+    view.render();    
+    
 });
 
 
