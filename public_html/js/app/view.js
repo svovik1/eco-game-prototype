@@ -75,15 +75,18 @@ function View(game) {
         $(".game-result-screen").removeClass("hidden");
 
         var resultText;
+        var resultClass;
         if (event.result === "lose") {
             resultText = "You lost";
+            resultClass = "alert-danger";
         } else {
             resultText = "You won!!!";
+            resultClass = "alert-success";
         }
-        $(".game-result").text(resultText);
+        $(".game-result").text(resultText).addClass(resultClass);
 
         if (event.reason) {
-            $(".game-result-reason").text(event.reason);
+            $(".game-result-reason").text(event.reason).addClass(resultClass);
         }
     };
     
