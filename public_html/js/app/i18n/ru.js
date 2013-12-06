@@ -13,7 +13,12 @@
         "Complete move": "Закончить ход",
         "Step: ": "№ Хода: ",
         "Game Over": "Игра окончена",
-        "Restart Game": "Начать игру"
+        "Restart Game": "Начать игру",
+        "Money":"Деньги",
+        "Energy":"Энергия",
+        "Water":"Вода",
+        "Food":"Пища",
+        "Dioxide":"CO²"
     });
 })();
 
