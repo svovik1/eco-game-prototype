@@ -5,7 +5,7 @@ var rules = {
                 return game.resources.dioxide <= this.threshold;
             },
             effect: function(game) {
-                game.win("You dioxide level is below " + this.threshold);
+                game.win(t("You dioxide level is below ") + this.threshold);
             }}),
     lackOfResourcesLosesGame: new Rule({
             condition: function(game) {
@@ -15,7 +15,7 @@ var rules = {
                         game.resources.food <= 0;
             },
             effect: function(game) {
-                game.lose("You have lack of some vital resources");
+                game.lose(t("You have lack of some vital resources"));
             }})    
 };
 
