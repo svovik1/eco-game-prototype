@@ -148,7 +148,7 @@ var cards = {
         name: t("Invest in rail infrastructure"),
         description: "",
         effect: function(game){
-            game.resources.money -= 5=;
+            game.resources.money -= 50;
             game.resources.energy += 150;
             game.resources.dioxide -= 10;
         }
