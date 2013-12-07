@@ -105,10 +105,10 @@ function Game(options) {
 
     this.resources = {
         money: 1000,
-        energy: 1000,
-        water: 1000,
-        food: 1000,
-        dioxide: 100
+        energy: 20,
+        water: 20,
+        food: 30,
+        dioxide: 5
     };
 
 
