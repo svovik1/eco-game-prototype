@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Sat Dec 07 2013 18:53:53 GMT+0200 (FLE Standard Time)
+// Generated on Sat Dec 07 2013 20:35:50 GMT+0200 (FLE Standard Time)
 
 module.exports = function(config) {
   config.set({
@@ -9,13 +9,13 @@ module.exports = function(config) {
 
 
     // frameworks to use
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'requirejs'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'test/unit/**/*.js',
-      'public_html/js/app/**/*.js'
+      'test-main.js',
+      {pattern: 'test/unit/**/*.js', included: false}
     ],
 
 
