@@ -1,4 +1,4 @@
-define(["app/model"], function(model) {
+define(["app/model", "app/i18n"], function(model, translator) {
     return {
         flood: new model.Disaster({
             name: t("Flood"),

@@ -1,4 +1,4 @@
-define(["app/model"], function(model) {
+define(["app/model", "app/i18n"], function(model, translator) {
     return {
         modernizeManufactures: new model.Card({
             name: t("Modernize Manufacturing"),

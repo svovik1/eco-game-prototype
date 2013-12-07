@@ -1,4 +1,4 @@
-define(["app/model"], function(model) {
+define(["jquery"], function($) {
     function View(game) {
         var self = this;
         $(".game-move-complete").click(function() {
