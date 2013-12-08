@@ -28,5 +28,4 @@ define([], function() {
     }
 
     return new Translator();
-
 });
