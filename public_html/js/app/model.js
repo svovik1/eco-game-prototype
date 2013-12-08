@@ -1,6 +1,33 @@
 define([], function() {
 
+    function Effect(resource, value) {
+
+        this.isGood = function() {
+            if (resource == "dioxide") {
+                return value < 0;
+            }
+            return value >= 0;
+        }
+
+        this.value = function() {
+            return value;
+        }
+
+        this.resource = function() {
+            return resource;
+        }
+    }
+
     function Card(card) {
+
+        var card = card || {};
+        var resources = card.resources || {};
+        var effects = {};
+
+        for (var resource in resources) {            
+            effects[resource] = new Effect(resource, card.resources[resource]);
+        }
+
         this.name = function() {
             return card.name;
         };
@@ -10,8 +37,21 @@ define([], function() {
         };
 
         this.effect = function(game) {
-            card.effect.call(card, game);
+            if (card.effect) {
+                card.effect.call(card, game);
+            } else {
+                for(var resource in effects){
+                    game.resources[resource] += effects[resource].value();
+                }
+            }
         };
+
+        this.effectFor = function(resource) {
+            if (!effects[resource]) {                
+                effects[resource] = new Effect(resource, 0);                
+            }            
+            return effects[resource];
+        }
     }
 
 
@@ -245,7 +285,8 @@ define([], function() {
         Game: Game,
         Move: Move,
         Disaster: Disaster,
-        Rule: Rule
+        Rule: Rule,
+        Effect: Effect
     };
 });
 
