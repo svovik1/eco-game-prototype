@@ -6,9 +6,9 @@ var disasters = {
             return game.resources.dioxide / 20;
         },
         effect: function(game){
-            game.resources.money -= 200;
-            game.resources.water -= 300;
-            game.resources.food -= 300;
+            game.resources.money -= 100;
+            game.resources.water -= 10;
+            game.resources.food -= 10;
         }
     })
 };
