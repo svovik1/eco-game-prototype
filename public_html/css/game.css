@@ -144,7 +144,13 @@ body {
 			padding: 1px 5px;
 		}
 }
-
+.game-disaster {
+	display: none;
+}
+.game-disaster-name {
+	text-align: center;
+	margin-top: 0;
+}
 
 /*  Start Of NewCards  */
 .glyphicon { margin-right:5px;}
