@@ -64,9 +64,20 @@ define(["jquery"], function($) {
         };
 
         var renderCard = function(card) {
-            var template = $($("#card-template").html()).clone();
+            var template = $($("#card-template").html());
             $(".card-name", template).text(card.name());
             $(".card-description", template).text(card.description());
+            for(var resource in game.resources){
+                var resourceProgress = $("." + resource + " .progress-bar", template);
+                if (card.effectFor(resource).value() == 0){
+                    continue;
+                }
+                if (card.effectFor(resource).isGood()){
+                    resourceProgress.addClass("progress-bar-success");
+                } else {
+                    resourceProgress.addClass("progress-bar-danger");
+                }
+            }
             template.data("card", card);
             return template;
         }
