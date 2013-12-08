@@ -67,16 +67,22 @@ define(["jquery"], function($) {
             var template = $($("#card-template").html());
             $(".card-name", template).text(card.name());
             $(".card-description", template).text(card.description());
-            for(var resource in game.resources){
+
+            for (var resource in game.resources) {
                 var resourceProgress = $("." + resource + " .progress-bar", template);
-                if (card.effectFor(resource).value() == 0){
-                    continue;
+                var progressClass = "progress-bar-info";
+                switch (card.effectFor(resource).type()) {
+                    case "good":
+                        progressClass = "progress-bar-success";
+                        break;
+                    case "bad":
+                        progressClass = "progress-bar-danger";
+                        break;
+                    case "neutral":
+                        progressClass = "progress-bar-info";
+                        break;
                 }
-                if (card.effectFor(resource).isGood()){
-                    resourceProgress.addClass("progress-bar-success");
-                } else {
-                    resourceProgress.addClass("progress-bar-danger");
-                }
+                resourceProgress.addClass(progressClass);
             }
             template.data("card", card);
             return template;

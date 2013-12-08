@@ -2,11 +2,20 @@ define([], function() {
 
     function Effect(resource, value) {
 
-        this.isGood = function() {
-            if (resource == "dioxide") {
+        var lessIsBetterResources = ["dioxide"];
+        
+        var isGood = function() {
+            if (lessIsBetterResources.indexOf(resource) != -1) {
                 return value < 0;
             }
             return value >= 0;
+        }
+        
+        this.type = function(){
+            if (value == 0){
+                return "neutral";
+            }
+            return (isGood()) ? "good" : "bad";
         }
 
         this.value = function() {

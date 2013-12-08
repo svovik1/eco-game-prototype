@@ -13,7 +13,7 @@ define(["app/model"], function(model){
             for (i = 0; i < resources.length; i++) {
                 var resource = resources[i];
                 var effect = new model.Effect(resource, increment);
-                expect(effect.isGood()).toEqual(true);
+                expect(effect.type()).toEqual("good");
             }
         });
         
@@ -21,18 +21,23 @@ define(["app/model"], function(model){
             for (i = 0; i < resources.length; i++) {
                 var resource = resources[i];
                 var effect = new model.Effect(resource, decrement);
-                expect(effect.isGood()).not.toEqual(true);
+                expect(effect.type()).toEqual("bad");
             }
         });
         
         it("increasing level of dioxide is bad", function(){
             var effect = new model.Effect("dioxide", increment);
-            expect(effect.isGood()).toEqual(false);
+            expect(effect.type()).toEqual("bad");
         });
         
         it("decreasing level of dioxide is good", function(){
             var effect = new model.Effect("dioxide", decrement);
-            expect(effect.isGood()).toEqual(true);
+            expect(effect.type()).toEqual("good");
+        });
+        
+        it("type of effect without change should be neutral", function(){            
+            var effect = new model.Effect("money", 0);            
+            expect(effect.type()).toEqual("neutral");
         });
         
         it("change value should be available", function(){
