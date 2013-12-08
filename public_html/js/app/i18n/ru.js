@@ -1,4 +1,4 @@
-(function(){
+define(["app/i18n"], function(translator) {
     translator.registerTranslations({
         locale: "ru",
         "Import food":"Импортировать продовольствие",
@@ -41,12 +41,12 @@
         "Step: ": "№ Хода: ",
         "Game Over": "Игра окончена",
         "Restart Game": "Начать игру",
-        "Money":"Деньги",
-        "Energy":"Энергия",
-        "Water":"Вода",
-        "Food":"Пища",
-        "Dioxide":"CO²"
+        "Money": "Деньги",
+        "Energy": "Энергия",
+        "Water": "Вода",
+        "Food": "Пища",
+        "Dioxide": "CO²"
     });
-})();
+});
 
 

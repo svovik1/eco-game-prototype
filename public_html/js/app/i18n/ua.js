@@ -1,4 +1,4 @@
-(function(){
+define(["app/i18n"], function(translator){
     translator.registerTranslations({
         locale: "uk",
         "Import food":"Імпортувати продовольство",
@@ -47,6 +47,5 @@
         "Food":"Їжа",
         "Dioxide":"CO²"
     });
-})();
-
+});
 
