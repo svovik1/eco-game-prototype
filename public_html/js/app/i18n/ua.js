@@ -19,7 +19,7 @@
         "To support emissions trading":"Підтримати торгівлю викидами",
         "To increase industrial energy efficiency":"Підвищити промислову енергоефективність",
         "Invest in rail infrastructure":"Інвестувати в залізничну інфраструктуру",
-        "To support the development of small farms":"Підтримати розвиток малих сільськогосподарських підприємств",
+        "To support the development of small farms":"Підтримати розвиток малих сільсько-господарських підприємств",
         "Promote the development and use of renewable energy":"Сприяти розробці та використанню  відновлювальних джерел енергії",
         "To support the development of organic farming":"Підтримати розвиток органічного землеробства",
         "Conduct a campaign to reduce packaging":"Провести кампанію із зменшення пакування",
