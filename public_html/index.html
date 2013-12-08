@@ -20,36 +20,41 @@
     <body>        
         <div class="game-screen">
             <div class="score-bar well">
-                <span class="i18n">Step: </span>
-                <span class="game-move-number badge"></span>
-                <ul>
-                    <li title="Money" class="i18n-title"><span class="glyphicon glyphicon-usd"></span> 
-                        <span class="game-state-money badge"></span></li>
-                    <li title="Energy" class="i18n-title"><span class="glyphicon glyphicon-flash"></span> 
-                        <span class="game-state-energy badge"></span></li>
-                    <li title="Water" class="i18n-title"><span class="glyphicon glyphicon-tint"></span> 
-                        <span class="game-state-water badge"></span></li>
-                    <li title="Food" class="i18n-title"><span class="glyphicon glyphicon-cutlery"></span> 
-                        <span class="game-state-food badge"></span></li>
-                    <li title="Dioxide" class="i18n-title"><span class="glyphicon glyphicon-cloud"></span> 
-                        <span class="game-state-dioxide badge"></span></li>
-                </ul>
+                <div class="col-lg-5 col-md-6 col-sm-8 col-xs-9">
+                    <span class="i18n">Step: </span>
+                    <span class="game-move-number badge"></span>
+                    <ul>
+                        <li title="Money" class="i18n-title"><span class="glyphicon glyphicon-usd"></span> 
+                            <span class="game-state-money badge"></span></li>
+                        <li title="Energy" class="i18n-title"><span class="glyphicon glyphicon-flash"></span> 
+                            <span class="game-state-energy badge"></span></li>
+                        <li title="Water" class="i18n-title"><span class="glyphicon glyphicon-tint"></span> 
+                            <span class="game-state-water badge"></span></li>
+                        <li title="Food" class="i18n-title"><span class="glyphicon glyphicon-cutlery"></span> 
+                            <span class="game-state-food badge"></span></li>
+                        <li title="Dioxide" class="i18n-title"><span class="glyphicon glyphicon-cloud"></span> 
+                            <span class="game-state-dioxide badge"></span></li>
+                    </ul>
+                </div>
+                <div class="controls col-lg-2 col-md-6 col-sm-4 col-xs-3">
+                    <button class="game-move-complete btn btn-primary btn-lg i18n">Complete move</button>
+                </div>
+                <div class="col-lg-5 col-md-12 col-sm-12"></div>
+                <div class="clear"></div>
             </div>
+            
+            
 
-            <div class="well col-md-6">
+            <div class="well col-md-6 col-sm-6">
                 <h3 class="i18n">Available cards</h3>
                 <div class="game-available-cards"></div>
             </div>
             
-            <div class="well col-md-6">
+            <div class="well col-md-6 col-sm-6">
                 <h3 class="i18n">Cards in use</h3>
                 <div class="game-cards-on-hands"></div>
             </div>
 
-            <div class="controls">
-                <button class="game-move-complete btn btn-primary btn-large i18n">Complete move</button>
-            </div>
-            
             <div class="game-disaster notification">
                 <span class="game-disaster-name"></span>
                 <span class="game-disaster-description"></span>
@@ -66,37 +71,63 @@
         </div>
 
         <script id="card-template" type="text/html">
-                    <div class="card panel panel-default">
-                        <span class="card-name panel-heading"></span>
-                        <div class="panel-body">
-                            <span class="card-description"></span>
-                            <span class="card-effect"></span>
-                            <div class="bar money">
-                                <div class="w45 fl pr bar-1"><div class="progr pa btn-danger"></div></div>
-                                <div class="w10 glyphicon glyphicon-usd fl">&nbsp;</div>
-                                <div class="w45 fl pr bar-2"><div class="progr pa btn-success"></div></div>
+                    <div class="card col-xs-12 col-md-12 col-lg-6 well well-sm">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-7 text-center">
+                                <span class="card-name"></span>
+                                <span class="card-description"></span>
+                                <span class="card-effect"></span>
                             </div>
-                            <div class="bar energy">
-                                <div class="w45 fl pr bar-1"><div class="progr pa btn-danger"></div></div>
-                                <div class="w10 glyphicon glyphicon-flash fl">&nbsp;</div>
-                                <div class="w45 fl pr bar-2"><div class="progr pa btn-success"></div></div>
+                            <div class="col-xs-12 col-md-5">
+                                <div class="row rating-desc">
+                                    <div class="col-xs-3 col-md-3 text-right money">
+                                        <span class="glyphicon glyphicon-usd"></span>
+                                    </div>
+                                    <div class="col-xs-8 col-md-9 money">
+                                        <div class="progress progress-striped">
+                                            <div class="progress-bar progress-bar-success" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3 col-md-3 text-right energy">
+                                        <span class="glyphicon glyphicon-flash"></span>
+                                    </div>
+                                    <div class="col-xs-8 col-md-9 energy">
+                                        <div class="progress progress-striped">
+                                            <div class="progress-bar progress-bar-success">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3 col-md-3 text-right water">
+                                        <span class="glyphicon glyphicon-tint"></span>
+                                    </div>
+                                    <div class="col-xs-8 col-md-9 water">
+                                        <div class="progress progress-striped">
+                                            <div class="progress-bar progress-bar-success">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3 col-md-3 text-right food">
+                                        <span class="glyphicon glyphicon-cutlery"></span>
+                                    </div>
+                                    <div class="col-xs-8 col-md-9 food">
+                                        <div class="progress progress-striped">
+                                            <div class="progress-bar progress-bar-success">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3 col-md-3 text-right dioxide">
+                                        <span class="glyphicon glyphicon-cloud"></span>
+                                    </div>
+                                    <div class="col-xs-8 col-md-9 dioxide">
+                                        <div class="progress progress-striped">
+                                            <div class="progress-bar progress-bar-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                             </div>
-                            <div class="bar water">
-                                <div class="w45 fl pr bar-1"><div class="progr pa btn-danger"></div></div>
-                                <div class="w10 glyphicon glyphicon-tint fl">&nbsp;</div>
-                                <div class="w45 fl pr bar-2"><div class="progr pa btn-success"></div></div>
-                            </div>
-                            <div class="bar food">
-                                <div class="w45 fl pr bar-1"><div class="progr pa btn-danger"></div></div>
-                                <div class="w10 glyphicon glyphicon-cutlery fl">&nbsp;</div>
-                                <div class="w45 fl pr bar-2"><div class="progr pa btn-success"></div></div>
-                            </div>
-                            <div class="bar dioxide">
-                                <div class="w45 fl pr bar-1"><div class="progr pa btn-success"></div></div>
-                                <div class="w10 glyphicon glyphicon-cloud fl">&nbsp;</div>
-                                <div class="w45 fl pr bar-2"><div class="progr pa btn-danger"></div></div>
-                            </div>
-                            
                         </div>
                     </div>
         </script>
