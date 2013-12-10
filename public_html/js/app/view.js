@@ -64,9 +64,26 @@ define(["jquery"], function($) {
         };
 
         var renderCard = function(card) {
-            var template = $($("#card-template").html()).clone();
+            var template = $($("#card-template").html());
             $(".card-name", template).text(card.name());
             $(".card-description", template).text(card.description());
+
+            for (var resource in game.resources) {
+                var resourceProgress = $("." + resource + " .progress-bar", template);
+                var progressClass = "progress-bar-info";
+                switch (card.effectFor(resource).type()) {
+                    case "good":
+                        progressClass = "progress-bar-success";
+                        break;
+                    case "bad":
+                        progressClass = "progress-bar-danger";
+                        break;
+                    case "neutral":
+                        progressClass = "progress-bar-info";
+                        break;
+                }
+                resourceProgress.addClass(progressClass);
+            }
             template.data("card", card);
             return template;
         }
@@ -95,7 +112,8 @@ define(["jquery"], function($) {
             var disaster = event.disaster;
             $(".game-disaster-name").text(disaster.name());
             $(".game-disaster-description").text(disaster.description());
-            $(".game-disaster").show();
+            var disasterViewClass = (event.disaster.type() == "bad") ? " alert-danger" :  "alert-success";
+            $(".game-disaster").addClass(disasterViewClass).show();
         };
 
         this.onFinishMove = function(event) {

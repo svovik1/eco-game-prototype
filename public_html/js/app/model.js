@@ -1,6 +1,42 @@
 define([], function() {
 
+    function Effect(resource, value) {
+
+        var lessIsBetterResources = ["dioxide"];
+        
+        var isGood = function() {
+            if (lessIsBetterResources.indexOf(resource) != -1) {
+                return value < 0;
+            }
+            return value >= 0;
+        }
+        
+        this.type = function(){
+            if (value == 0){
+                return "neutral";
+            }
+            return (isGood()) ? "good" : "bad";
+        }
+
+        this.value = function() {
+            return value;
+        }
+
+        this.resource = function() {
+            return resource;
+        }
+    }
+
     function Card(card) {
+
+        var card = card || {};
+        var resources = card.resources || {};
+        var effects = {};
+
+        for (var resource in resources) {            
+            effects[resource] = new Effect(resource, card.resources[resource]);
+        }
+
         this.name = function() {
             return card.name;
         };
@@ -10,8 +46,21 @@ define([], function() {
         };
 
         this.effect = function(game) {
-            card.effect.call(card, game);
+            if (card.effect) {
+                card.effect.call(card, game);
+            } else {
+                for(var resource in effects){
+                    game.resources[resource] += effects[resource].value();
+                }
+            }
         };
+
+        this.effectFor = function(resource) {
+            if (!effects[resource]) {                
+                effects[resource] = new Effect(resource, 0);                
+            }            
+            return effects[resource];
+        }
     }
 
 
@@ -55,6 +104,10 @@ define([], function() {
 
         this.description = function() {
             return disaster.description;
+        };
+        
+        this.type = function() {
+           return disaster.type; 
         };
 
         this.probability = function(game) {
@@ -142,7 +195,7 @@ define([], function() {
 
         var checkDisasters = function() {
             var disaster = getMostProbableDisaster();
-            if (disasterWillHappen(disaster)) {
+            if (disasterWillHappen(disaster)) {                
                 disaster.effect(self);
                 notify("onDisaster", {disaster: disaster});
             }
@@ -245,7 +298,8 @@ define([], function() {
         Game: Game,
         Move: Move,
         Disaster: Disaster,
-        Rule: Rule
+        Rule: Rule,
+        Effect: Effect
     };
 });
 
