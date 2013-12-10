@@ -105,6 +105,10 @@ define([], function() {
         this.description = function() {
             return disaster.description;
         };
+        
+        this.type = function() {
+           return disaster.type; 
+        };
 
         this.probability = function(game) {
             return disaster.probability.call(disaster, game);
@@ -191,7 +195,7 @@ define([], function() {
 
         var checkDisasters = function() {
             var disaster = getMostProbableDisaster();
-            if (disasterWillHappen(disaster)) {
+            if (disasterWillHappen(disaster)) {                
                 disaster.effect(self);
                 notify("onDisaster", {disaster: disaster});
             }

@@ -1,7 +1,7 @@
 define(["app/model"], function(model) {
     return {
         dioxideBelowThresholdRule: new model.Rule({
-            threshold: 10,
+            threshold: 1,
             condition: function(game) {
                 return game.resources.dioxide <= this.threshold;
             },

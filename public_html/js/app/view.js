@@ -112,7 +112,8 @@ define(["jquery"], function($) {
             var disaster = event.disaster;
             $(".game-disaster-name").text(disaster.name());
             $(".game-disaster-description").text(disaster.description());
-            $(".game-disaster").show();
+            var disasterViewClass = (event.disaster.type() == "bad") ? " alert-danger" :  "alert-success";
+            $(".game-disaster").addClass(disasterViewClass).show();
         };
 
         this.onFinishMove = function(event) {
