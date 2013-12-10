@@ -80,11 +80,25 @@ define([], function() {
         };
     }
 
-    function Move() {
+    function Move(options) {
         var cards = new Array();
+        var cardLimit = 5;
+        
+        var init = function(){
+            if (options){
+                cardLimit = options.cardLimit || cardLimit;
+            }
+        };
+        
+        init();
 
         this.takeCard = function(card) {
-            cards.push(card);
+            if (cards.length < cardLimit) {
+                cards.push(card);
+                return true;
+            } else {
+                return false;
+            }
         };
 
         this.cardsOnHands = function() {
@@ -93,6 +107,10 @@ define([], function() {
 
         this.returnCard = function(card) {
             cards.splice(cards.indexOf(card), 1);
+        };
+        
+        this.cardLimit = function(){
+            return cardLimit;
         };
     }
 
@@ -261,9 +279,12 @@ define([], function() {
         };
 
         this.pickCard = function(card) {
-            deck.removeCard(card);
-            move.takeCard(card);
-            notify("onCardPick");
+            if (move.takeCard(card)) {
+                deck.removeCard(card);
+                notify("onCardPick");
+            } else {
+                notify("onCardBeyondLimit", move);
+            }
         };
 
         this.returnCard = function(card) {

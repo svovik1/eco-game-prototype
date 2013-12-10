@@ -45,7 +45,9 @@ define(["app/i18n"], function(translator) {
         "Energy": "Энергия",
         "Water": "Вода",
         "Food": "Пища",
-        "Dioxide": "CO²"
+        "Dioxide": "CO²",
+        "You cannot take more than":"Ви не можете взяти больше чем",
+        "cards":"карт"
     });
 });
 

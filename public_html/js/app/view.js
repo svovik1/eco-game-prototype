@@ -121,7 +121,12 @@ define(["jquery"], function($) {
         };
 
         this.onCardPick = function() {
+            $(".game-alert").hide();
             this.renderCards();
+        };
+        
+        this.onCardBeyondLimit = function(move){
+            $(".game-alert").addClass("alert-warning").text(t("You cannot take more than") + " " + move.cardLimit() + " " + t("cards")).show();
         };
 
         game.addListener(this);
