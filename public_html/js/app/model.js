@@ -13,7 +13,7 @@ define([], function() {
         };
         
         this.type = function(){
-            if (value == 0){
+            if (value === 0){
                 return "neutral";
             }
             return (isGood()) ? "good" : "bad";
@@ -24,7 +24,7 @@ define([], function() {
         };
         
         this.weightedValue = function(val){
-            if (value == 0){
+            if (value === 0){
                 return 0;
             }
             if (val){
@@ -74,7 +74,7 @@ define([], function() {
 
     function Card(card) {
 
-        var card = card || {};
+        card = card || {};
         var resources = card.resources || {};
         var effects = {};
 
@@ -110,7 +110,7 @@ define([], function() {
 
 
     function Deck() {
-        var cards = new Array();
+        var cards = [];
 
         this.availableCards = function() {
             return cards;
@@ -126,7 +126,7 @@ define([], function() {
     }
 
     function Move(options) {
-        var cards = new Array();
+        var cards = [];
         var cardLimit = 5;
         
         var init = function(){
@@ -198,20 +198,20 @@ define([], function() {
 
         var parseOptions = function(options) {
             if (options.disasters) {
-                for (var key in options.disasters) {
-                    disasters.push(options.disasters[key]);
+                for (var disasterKey in options.disasters) {
+                    disasters.push(options.disasters[disasterKey]);
                 }
             }
 
             if (options.rules) {
-                for (var key in options.rules) {
-                    rules.push(options.rules[key]);
+                for (var ruleKey in options.rules) {
+                    rules.push(options.rules[ruleKey]);
                 }
             }
 
             if (options.cards) {
-                for (var key in options.cards) {
-                    deck.putCard((options.cards[key]));
+                for (var cardKey in options.cards) {
+                    deck.putCard((options.cards[cardKey]));
                 }
             }
         };
@@ -236,10 +236,10 @@ define([], function() {
             for(var resource in self.resources){                
                 for(var i = 0; i < availableCards.length; i++){
                     var card = availableCards[i];
-                    var effect = card.effectFor(resource)
+                    var effect = card.effectFor(resource);
                     effects.push(effect);
                 }
-            };
+            }
             new WeightedValueCalculator().calculate(effects);
             notify("onGameStart");
         };

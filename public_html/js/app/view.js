@@ -34,6 +34,18 @@ define(["jquery"], function($) {
             this.renderCardsOnHands();
         };
 
+        var makeDeckCardClickHandler = function(card){
+            return function(){
+                game.pickCard(card);
+            };
+        };
+        
+        var makeDeckCardOnHandClickHandler = function(card){
+            return function(){
+                game.returnCard(card);
+            };
+        };
+
         this.renderDeck = function() {
             var cardTable = $(".game-available-cards");
             $(".card", cardTable).remove();
@@ -41,10 +53,7 @@ define(["jquery"], function($) {
             for (var index in cards) {
                 var card = cards[index];
                 var cardNode = renderCard(card);
-                cardNode.click(function() {
-                    var card = $(this).data("card");
-                    game.pickCard(card);
-                });
+                cardNode.click(makeDeckCardClickHandler(card));
                 cardTable.prepend(cardNode);
             }
         };
@@ -56,10 +65,7 @@ define(["jquery"], function($) {
             for (var index in cards) {
                 var card = cards[index];
                 var cardNode = renderCard(card);
-                cardNode.click(function() {
-                    var card = $(this).data("card");
-                    game.returnCard(card);
-                });
+                cardNode.click(makeDeckCardOnHandClickHandler(card));
                 cardTable.prepend(cardNode);
             }
         };
@@ -86,8 +92,7 @@ define(["jquery"], function($) {
                 }
                 resourceProgress.addClass(progressClass).css("width", effect.weightedValue() + "%")
                         .parent().attr("title", effect.value());
-            }
-            template.data("card", card);
+            }            
             return template;
         };
 

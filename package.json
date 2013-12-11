@@ -1,0 +1,30 @@
+{
+  "name": "eco-game-prototype",
+  "version": "0.1.0",
+  "description": "browser game",
+  "main": "public_html/js/app/app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "karma start confing/karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dimasmith/eco-game-prototype.git"
+  },
+  "keywords": [
+    "game",
+    "js",
+    "ecology"
+  ],
+  "author": "anatolich",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/dimasmith/eco-game-prototype/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.7.2"
+  }
+}
