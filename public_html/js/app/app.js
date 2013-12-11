@@ -1,4 +1,4 @@
-define(["app/model", "app/view", "app/rules", "app/disasters", "app/cards", "app/i18n", "jquery"],
+define(["app/model", "app/view", "app/rules", "app/disasters", "app/cards", "app/i18n-ui", "jquery"],
         function(model, view, rules, disasters, cards, translator, $) {
 
             function GameListener(view) {
@@ -30,6 +30,7 @@ define(["app/model", "app/view", "app/rules", "app/disasters", "app/cards", "app
 
             $(document).ready(function() {
 
+                translator.translateUI();
                 var game = new model.Game({
                     rules: rules,
                     cards: cards,
@@ -40,17 +41,6 @@ define(["app/model", "app/view", "app/rules", "app/disasters", "app/cards", "app
                 
                 game.addListener(new GameListener(v));
                 game.start();
-
-                $(".i18n").each(function() {
-                    var el = $(this);
-                    el.text(t(el.text()));
-                });
-
-                $(".i18n-title").each(function() {
-                    var el = $(this);
-                    el.attr("title", t(el.attr("title")));
-                });
-
             });
 
         }
