@@ -237,11 +237,11 @@ define([], function() {
                 for(var i = 0; i < availableCards.length; i++){
                     var card = availableCards[i];
                     var effect = card.effectFor(resource)
-                    console.log(effect);
                     effects.push(effect);
                 }
             };
             new WeightedValueCalculator().calculate(effects);
+            notify("onGameStart");
         };
 
         this.completeMove = function() {
