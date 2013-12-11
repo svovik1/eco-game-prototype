@@ -94,4 +94,55 @@ define(["app/model"], function(model){
             expect(mockGame.resources.money).toEqual(120);
         });
     });
+    
+    describe("weighted effects", function(){
+        it("weighted value of zero effect is zero", function(){
+            var effect = new model.Effect("money", 0);
+            expect(effect.weightedValue()).toEqual(0);
+        });
+        
+        it("weighted effect should be modifiable", function(){
+            var effect = new model.Effect("money", 1);
+            effect.weightedValue(50);
+            expect(effect.weightedValue()).toEqual(50);
+        });
+        
+        it("weighted effect of single effect should be 100%", function(){
+            var effect = new model.Effect("money", 1);
+            var calculator = new model.WeightedValueCalculator();
+            calculator.calculate([effect]);
+            expect(effect.weightedValue()).toEqual(100);            
+        });
+        
+        it("weighted effect of resources should be calculated according to highest value", function(){
+            var effect10 = new model.Effect("money", 10);
+            var effect5 = new model.Effect("money", 5);
+            var calculator = new model.WeightedValueCalculator();
+            calculator.calculate([effect10, effect5]);
+            expect(effect10.weightedValue()).toEqual(100);            
+            expect(effect5.weightedValue()).toEqual(50);            
+        });
+        
+        it("weighted effect shoud use absolute values", function(){
+            var effect10 = new model.Effect("money", -10);
+            var effect5 = new model.Effect("money", 5);
+            var calculator = new model.WeightedValueCalculator();
+            calculator.calculate([effect10, effect5]);
+            expect(effect10.weightedValue()).toEqual(100);            
+            expect(effect5.weightedValue()).toEqual(50);            
+        });
+        
+        it("weighted effect of effects should be calculated per resource", function(){
+            var money10 = new model.Effect("money", 10);
+            var money5 = new model.Effect("money", 5);
+            var food10 = new model.Effect("food", 4);
+            var food2 = new model.Effect("food", 2);
+            var calculator = new model.WeightedValueCalculator();
+            calculator.calculate([money10, money5, food10, food2]);
+            expect(money10.weightedValue()).toEqual(100);            
+            expect(money5.weightedValue()).toEqual(50);            
+            expect(food10.weightedValue()).toEqual(100);            
+            expect(food2.weightedValue()).toEqual(50);            
+        });
+    });
 });

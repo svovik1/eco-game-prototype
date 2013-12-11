@@ -71,7 +71,8 @@ define(["jquery"], function($) {
             for (var resource in game.resources) {
                 var resourceProgress = $("." + resource + " .progress-bar", template);
                 var progressClass = "progress-bar-info";
-                switch (card.effectFor(resource).type()) {
+                var effect = card.effectFor(resource);
+                switch (effect.type()) {
                     case "good":
                         progressClass = "progress-bar-success";
                         break;
@@ -82,11 +83,12 @@ define(["jquery"], function($) {
                         progressClass = "progress-bar-info";
                         break;
                 }
-                resourceProgress.addClass(progressClass);
+                resourceProgress.addClass(progressClass).css("width", effect.weightedValue() + "%")
+                        .parent().attr("title", effect.value());
             }
             template.data("card", card);
             return template;
-        }
+        };
 
         this.onGameOver = function(event) {
             $(".game-screen").hide();

@@ -3,28 +3,73 @@ define([], function() {
     function Effect(resource, value) {
 
         var lessIsBetterResources = ["dioxide"];
+        var weighted;
         
         var isGood = function() {
             if (lessIsBetterResources.indexOf(resource) != -1) {
                 return value < 0;
             }
             return value >= 0;
-        }
+        };
         
         this.type = function(){
             if (value == 0){
                 return "neutral";
             }
             return (isGood()) ? "good" : "bad";
-        }
+        };
 
         this.value = function() {
             return value;
-        }
+        };
+        
+        this.weightedValue = function(val){
+            if (value == 0){
+                return 0;
+            }
+            if (val){
+                weighted = val;
+            }
+            return weighted;
+        };
 
         this.resource = function() {
             return resource;
-        }
+        };
+    }
+    
+    function WeightedValueCalculator(){
+        
+        var maxValues = {};
+        
+        var maxValue = function(resource, newValue) {
+            if (newValue) {
+                newValue = Math.abs(newValue);
+                var oldValue = maxValues[resource] || 0;
+                maxValues[resource] = Math.max(oldValue, newValue);
+            }
+            return maxValues[resource] || 0;
+        };
+        
+        var collectMaxValues = function(effects){
+            for(var i = 0; i < effects.length; i++){
+                var effect = effects[i];                
+                maxValue(effect.resource(), effect.value());
+            }
+        };
+        
+        var calcualteWeightedValues = function(effects){
+            for(var i = 0; i < effects.length; i++){
+                var effect = effects[i];
+                var value = Math.abs(effect.value());
+                effect.weightedValue(value / maxValue(effect.resource()) * 100);
+            }
+        };
+        
+        this.calculate = function(effects){            
+            collectMaxValues(effects);
+            calcualteWeightedValues(effects);            
+        };
     }
 
     function Card(card) {
@@ -60,7 +105,7 @@ define([], function() {
                 effects[resource] = new Effect(resource, 0);                
             }            
             return effects[resource];
-        }
+        };
     }
 
 
@@ -186,6 +231,17 @@ define([], function() {
 
         this.start = function() {
             move = new Move();
+            var effects = [];
+            var availableCards = deck.availableCards();
+            for(var resource in self.resources){                
+                for(var i = 0; i < availableCards.length; i++){
+                    var card = availableCards[i];
+                    var effect = card.effectFor(resource)
+                    console.log(effect);
+                    effects.push(effect);
+                }
+            };
+            new WeightedValueCalculator().calculate(effects);
         };
 
         this.completeMove = function() {
@@ -320,7 +376,8 @@ define([], function() {
         Move: Move,
         Disaster: Disaster,
         Rule: Rule,
-        Effect: Effect
+        Effect: Effect,
+        WeightedValueCalculator: WeightedValueCalculator
     };
 });
 
