@@ -1,4 +1,5 @@
 define(["jquery"], function($) {
+    
     function View(game) {
         var self = this;
         $(".game-move-complete").click(function() {
@@ -33,6 +34,18 @@ define(["jquery"], function($) {
             this.renderCardsOnHands();
         };
 
+        var makeDeckCardClickHandler = function(card){
+            return function(){
+                game.pickCard(card);
+            };
+        };
+        
+        var makeDeckCardOnHandClickHandler = function(card){
+            return function(){
+                game.returnCard(card);
+            };
+        };
+
         this.renderDeck = function() {
             var cardTable = $(".game-available-cards");
             $(".card", cardTable).remove();
@@ -40,10 +53,7 @@ define(["jquery"], function($) {
             for (var index in cards) {
                 var card = cards[index];
                 var cardNode = renderCard(card);
-                cardNode.click(function() {
-                    var card = $(this).data("card");
-                    game.pickCard(card);
-                });
+                cardNode.click(makeDeckCardClickHandler(card));
                 cardTable.prepend(cardNode);
             }
         };
@@ -55,23 +65,38 @@ define(["jquery"], function($) {
             for (var index in cards) {
                 var card = cards[index];
                 var cardNode = renderCard(card);
-                cardNode.click(function() {
-                    var card = $(this).data("card");
-                    game.returnCard(card);
-                });
+                cardNode.click(makeDeckCardOnHandClickHandler(card));
                 cardTable.prepend(cardNode);
             }
         };
 
         var renderCard = function(card) {
-            var template = $($("#card-template").html()).clone();
+            var template = $($("#card-template").html());
             $(".card-name", template).text(card.name());
             $(".card-description", template).text(card.description());
-            template.data("card", card);
-            return template;
-        }
 
-        this.onGameOver = function(event) {
+            for (var resource in game.resources) {
+                var resourceProgress = $("." + resource + " .progress-bar", template);
+                var progressClass = "progress-bar-info";
+                var effect = card.effectFor(resource);
+                switch (effect.type()) {
+                    case "good":
+                        progressClass = "progress-bar-success";
+                        break;
+                    case "bad":
+                        progressClass = "progress-bar-danger";
+                        break;
+                    case "neutral":
+                        progressClass = "progress-bar-info";
+                        break;
+                }
+                resourceProgress.addClass(progressClass).css("width", effect.weightedValue() + "%")
+                        .parent().attr("title", effect.value());
+            }            
+            return template;
+        };
+
+        this.gameOver = function(event) {
             $(".game-screen").hide();
             $(".game-result-screen").removeClass("hidden");
 
@@ -91,24 +116,28 @@ define(["jquery"], function($) {
             }
         };
 
-        this.onDisaster = function(event) {
+        this.showDisasterNotification = function(event) {
             var disaster = event.disaster;
             $(".game-disaster-name").text(disaster.name());
             $(".game-disaster-description").text(disaster.description());
-            $(".game-disaster").show();
+            var disasterViewClass = (event.disaster.type() === "bad") ? " alert-danger" :  "alert-success";
+            $(".game-disaster").addClass(disasterViewClass).show();
         };
 
         this.onFinishMove = function(event) {
             this.render();
         };
 
-        this.onCardPick = function() {
+        this.pickCard = function() {
+            $(".game-alert").hide();
             this.renderCards();
         };
+        
+        this.showCardBeyondLimitNotification = function(move){
+            $(".game-alert").addClass("alert-warning").text(t("You cannot take more than") + " " + move.cardLimit() + " " + t("cards")).show();
+        };
 
-        game.addListener(this);
-
-    }
+    }    
 
     return {View: View};
 

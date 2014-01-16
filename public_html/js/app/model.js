@@ -1,6 +1,87 @@
 define([], function() {
 
+    function Effect(resource, value) {
+
+        var lessIsBetterResources = ["dioxide"];
+        var weighted;
+        
+        var isGood = function() {
+            if (lessIsBetterResources.indexOf(resource) != -1) {
+                return value < 0;
+            }
+            return value >= 0;
+        };
+        
+        this.type = function(){
+            if (value === 0){
+                return "neutral";
+            }
+            return (isGood()) ? "good" : "bad";
+        };
+
+        this.value = function() {
+            return value;
+        };
+        
+        this.weightedValue = function(val){
+            if (value === 0){
+                return 0;
+            }
+            if (val){
+                weighted = val;
+            }
+            return weighted;
+        };
+
+        this.resource = function() {
+            return resource;
+        };
+    }
+    
+    function WeightedValueCalculator(){
+        
+        var maxValues = {};
+        
+        var maxValue = function(resource, newValue) {
+            if (newValue) {
+                newValue = Math.abs(newValue);
+                var oldValue = maxValues[resource] || 0;
+                maxValues[resource] = Math.max(oldValue, newValue);
+            }
+            return maxValues[resource] || 0;
+        };
+        
+        var collectMaxValues = function(effects){
+            for(var i = 0; i < effects.length; i++){
+                var effect = effects[i];                
+                maxValue(effect.resource(), effect.value());
+            }
+        };
+        
+        var calcualteWeightedValues = function(effects){
+            for(var i = 0; i < effects.length; i++){
+                var effect = effects[i];
+                var value = Math.abs(effect.value());
+                effect.weightedValue(value / maxValue(effect.resource()) * 100);
+            }
+        };
+        
+        this.calculate = function(effects){            
+            collectMaxValues(effects);
+            calcualteWeightedValues(effects);            
+        };
+    }
+
     function Card(card) {
+
+        card = card || {};
+        var resources = card.resources || {};
+        var effects = {};
+
+        for (var resource in resources) {            
+            effects[resource] = new Effect(resource, card.resources[resource]);
+        }
+
         this.name = function() {
             return card.name;
         };
@@ -10,13 +91,26 @@ define([], function() {
         };
 
         this.effect = function(game) {
-            card.effect.call(card, game);
+            if (card.effect) {
+                card.effect.call(card, game);
+            } else {
+                for(var resource in effects){
+                    game.resources[resource] += effects[resource].value();
+                }
+            }
+        };
+
+        this.effectFor = function(resource) {
+            if (!effects[resource]) {                
+                effects[resource] = new Effect(resource, 0);                
+            }            
+            return effects[resource];
         };
     }
 
 
     function Deck() {
-        var cards = new Array();
+        var cards = [];
 
         this.availableCards = function() {
             return cards;
@@ -31,11 +125,25 @@ define([], function() {
         };
     }
 
-    function Move() {
-        var cards = new Array();
+    function Move(options) {
+        var cards = [];
+        var cardLimit = 5;
+        
+        var init = function(){
+            if (options){
+                cardLimit = options.cardLimit || cardLimit;
+            }
+        };
+        
+        init();
 
         this.takeCard = function(card) {
-            cards.push(card);
+            if (cards.length < cardLimit) {
+                cards.push(card);
+                return true;
+            } else {
+                return false;
+            }
         };
 
         this.cardsOnHands = function() {
@@ -44,6 +152,10 @@ define([], function() {
 
         this.returnCard = function(card) {
             cards.splice(cards.indexOf(card), 1);
+        };
+        
+        this.cardLimit = function(){
+            return cardLimit;
         };
     }
 
@@ -55,6 +167,10 @@ define([], function() {
 
         this.description = function() {
             return disaster.description;
+        };
+        
+        this.type = function() {
+           return disaster.type; 
         };
 
         this.probability = function(game) {
@@ -82,20 +198,20 @@ define([], function() {
 
         var parseOptions = function(options) {
             if (options.disasters) {
-                for (var key in options.disasters) {
-                    disasters.push(options.disasters[key]);
+                for (var disasterKey in options.disasters) {
+                    disasters.push(options.disasters[disasterKey]);
                 }
             }
 
             if (options.rules) {
-                for (var key in options.rules) {
-                    rules.push(options.rules[key]);
+                for (var ruleKey in options.rules) {
+                    rules.push(options.rules[ruleKey]);
                 }
             }
 
             if (options.cards) {
-                for (var key in options.cards) {
-                    deck.putCard((options.cards[key]));
+                for (var cardKey in options.cards) {
+                    deck.putCard((options.cards[cardKey]));
                 }
             }
         };
@@ -115,6 +231,17 @@ define([], function() {
 
         this.start = function() {
             move = new Move();
+            var effects = [];
+            var availableCards = deck.availableCards();
+            for(var resource in self.resources){                
+                for(var i = 0; i < availableCards.length; i++){
+                    var card = availableCards[i];
+                    var effect = card.effectFor(resource);
+                    effects.push(effect);
+                }
+            }
+            new WeightedValueCalculator().calculate(effects);
+            notify("onGameStart");
         };
 
         this.completeMove = function() {
@@ -142,7 +269,7 @@ define([], function() {
 
         var checkDisasters = function() {
             var disaster = getMostProbableDisaster();
-            if (disasterWillHappen(disaster)) {
+            if (disasterWillHappen(disaster)) {                
                 disaster.effect(self);
                 notify("onDisaster", {disaster: disaster});
             }
@@ -208,9 +335,12 @@ define([], function() {
         };
 
         this.pickCard = function(card) {
-            deck.removeCard(card);
-            move.takeCard(card);
-            notify("onCardPick");
+            if (move.takeCard(card)) {
+                deck.removeCard(card);
+                notify("onCardPick");
+            } else {
+                notify("onCardBeyondLimit", move);
+            }
         };
 
         this.returnCard = function(card) {
@@ -245,7 +375,9 @@ define([], function() {
         Game: Game,
         Move: Move,
         Disaster: Disaster,
-        Rule: Rule
+        Rule: Rule,
+        Effect: Effect,
+        WeightedValueCalculator: WeightedValueCalculator
     };
 });
 
