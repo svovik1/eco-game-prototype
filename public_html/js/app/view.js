@@ -1,5 +1,20 @@
 define(["jquery"], function($) {
     
+    function Welcome() {
+        var self = this;
+        $('.select-country ul li a').on('click', function(){
+            var country = $(this).html();
+            $('.select-country button').html(country + ' <span class="caret">');
+            $('.user-info .country').html(country);
+        });
+        $('.select-avatar .avatar').on('click', function(){
+            $('.select-avatar .avatar').removeClass('active');
+            $(this).addClass('active');
+            var avatar = $(this).data("avatar");
+            $('.user-info .avatar').attr('class', 'avatar').addClass(avatar);
+        });
+    }
+    
     function View(game) {
         var self = this;
         $(".game-move-complete").click(function() {
@@ -139,6 +154,6 @@ define(["jquery"], function($) {
 
     }    
 
-    return {View: View};
+    return {View: View, Welcome: Welcome};
 
 });

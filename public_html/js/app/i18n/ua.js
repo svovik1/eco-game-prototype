@@ -48,8 +48,14 @@ define(["app/i18n"], function(translator){
         "Dioxide":"CO²",
         "You cannot take more than":"Ви не можете взяти більше ніж",
         "cards":"карток",
-	"You lost":"Ви програли",
-	"You won!!!":"Ви перемогли!"
+	    "You lost":"Ви програли",
+	    "You won!!!":"Ви перемогли!",
+        "Rules":"Правила",
+        "Start Game":"Старт гри",
+        "Select country":"Оберіть страну",
+        "Ukraine":"Україна",
+        "Russia":"Росія",
+        "Poland":"Польща"
     });
 });
 
