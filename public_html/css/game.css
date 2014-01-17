@@ -206,7 +206,7 @@ body {
 .avatar.av-6 {
 	background: url(../static/images/av6.png) no-repeat center center;
 }
-.select-country .dropdown-toggle {
+.select-country {
 	display: inline-block;
 }
 .dropdown ul li {
