@@ -246,9 +246,9 @@ define([], function() {
 
         this.completeMove = function() {
             if (this.moveNumber() > 4 && !gameOver) {
-                this.lose(t("Game over"));
+                this.win(t("You won!!!"));
+                return;
             }
-            console.log();
             applyCards();
             checkDisasters();
             checkRules();
