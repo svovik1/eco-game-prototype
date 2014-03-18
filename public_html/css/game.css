@@ -116,6 +116,7 @@ body {
 .controls {
 	/*clear: both;*/
 	text-align: center;
+	margin-bottom: 5px;
 }
 .game-state-dioxide.badge {
 	background-color: #000;
@@ -212,24 +213,26 @@ body {
 .dropdown ul li {
 	text-align: left;
 }
-.flag {
-	width: 16px;
-	height: 11px;
-	display: inline-block;
-	margin-right: 5px;
-}
-.flag.uk {
-	background: url(../static/images/uk-icon.png);
-}
-.flag.ru {
-	background: url(../static/images/ru-icon.png);
-}
-.flag.pl {
-	background: url(../static/images/pl-icon.png);
-}
-.country {
-	margin-left: 10px;
-}
+
 .input-group.username {
 	margin-bottom: 10px;
+}
+
+#starting.preload {
+	background-image: url(../static/images/preload.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+#starting.preload > .row {
+	visibility: hidden;
+}
+.game-move-complete {
+	position: relative;
+	z-index: 1;
+}
+.foot-logo {
+	max-height: 50px;
+}
+.foot-logos {
+	max-width: 480px;
 }

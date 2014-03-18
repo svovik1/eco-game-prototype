@@ -223,10 +223,10 @@ define([], function() {
 
         this.resources = {
             money: 1000,
-            energy: 20,
-            water: 20,
-            food: 30,
-            dioxide: 5
+            energy: 40,
+            water: 60,
+            food: 50,
+            dioxide: 40
         };
 
         this.start = function() {
@@ -245,6 +245,10 @@ define([], function() {
         };
 
         this.completeMove = function() {
+            if (this.moveNumber() > 4 && !gameOver) {
+                this.lose(t("Game over"));
+            }
+            console.log();
             applyCards();
             checkDisasters();
             checkRules();

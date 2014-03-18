@@ -120,14 +120,17 @@ define(["jquery"], function($) {
                 resultText = t("You lost");
                 resultClass = "alert-danger";
             } else {
-                console.log(t("You won!!!"), "You won!!!");
                 resultText = t("You won!!!");
                 resultClass = "alert-success";
             }
-            $(".game-result").text(resultText).addClass(resultClass);
+            var resourceHTML = '<br />';
+            for (var key in game.resources) {
+                resourceHTML += '<label>' + t(key.capitalize()) + '</label>: ' + game.resources[key] + '<br />';
+            }
+            $(".game-result").html(resultText).addClass(resultClass);
 
             if (event.reason) {
-                $(".game-result-reason").text(event.reason).addClass(resultClass);
+                $(".game-result-reason").html(event.reason + resourceHTML).addClass(resultClass);
             }
         };
 
@@ -153,7 +156,9 @@ define(["jquery"], function($) {
         };
 
     }    
-
+    String.prototype.capitalize = function() {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    }
     return {View: View, Welcome: Welcome};
 
 });

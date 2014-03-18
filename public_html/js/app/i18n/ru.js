@@ -51,11 +51,20 @@ define(["app/i18n"], function(translator) {
     	"You lost":"Ви проиграли",
         "You won!!!":"Ви выиграли!",
         "Rules":"Правила",
+        "Rules of Game":"Правила игры",
         "Start Game":"Старт игры",
-        "Select country":"Выберите страну",
-        "Ukraine":"Украина",
-        "Russia":"Россия",
-        "Poland":"Польша"
+        "Сlimate Change":"Смена климата",
+        "Vocabulary":"Словарь",
+        "Select region":"Выберите регіон",
+        "Australia":"Австралия",
+        "Asia":"Азия",
+        "Africa":"Африка",
+        "Europe":"Европа",
+        "North America":"Северная Америка",
+        "South America":"Южная Америка",
+        "Home":"К началу",
+        "Start Game":"Начало игры",
+        "Created by":"Разработка:"
     });
 });
 
