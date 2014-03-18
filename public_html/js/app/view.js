@@ -136,13 +136,12 @@ define(["jquery"], function($) {
 
         this.showDisasterNotification = function(event) {
             var disaster = event.disaster;
-            var disasterViewClass = (disaster.type() === "bad") ? " alert-danger" :  "alert-success";
-            
+            var disasterViewClass = (disaster.type() === "bad") ? " alert-danger" :  "alert-success";         
             var modalWindow = '<div style="background:url(static/images/'+disaster.image()+') no-repeat 0 0;background-size: 100% 100%;" class="modal fade '+disasterViewClass+'" id="modalWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
             modalWindow += '<h4 class="modal-title">'+disaster.name()+'</h4></div><div class="modal-body">' + disaster.description();
             modalWindow += '</div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>';
-            
             $('body').append(modalWindow);
+            $('#modalWindow').modal();
         };
 
         this.onFinishMove = function(event) {
