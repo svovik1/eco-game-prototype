@@ -180,6 +180,10 @@ define([], function() {
         this.effect = function(game) {
             return disaster.effect.call(disaster, game);
         };
+        
+        this.image = function() {
+            return disaster.image;
+        };
     }
 
     function Game(options) {
