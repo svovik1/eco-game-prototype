@@ -1,16 +1,18 @@
 define(["jquery"], function($) {
     
-    function Welcome() {
+    function Welcome(player) {
         var self = this;
         $('.select-country ul li a').on('click', function(){
             var country = $(this).html();
             $('.select-country button').html(country + ' <span class="caret">');
             $('.user-info .country').html(country);
+            player.region($(this).text());
         });
         $('.select-avatar .avatar').on('click', function(){
             $('.select-avatar .avatar').removeClass('active');
             $(this).addClass('active');
             var avatar = $(this).data("avatar");
+            player.avatar(avatar);
             $('.user-info .avatar').attr('class', 'avatar').addClass(avatar);
         });
     }
@@ -110,7 +112,7 @@ define(["jquery"], function($) {
             return template;
         };
 
-        this.gameOver = function(event) {
+        this.gameOver = function(event, history) {
             $(".game-screen").hide();
             $(".game-result-screen").removeClass("hidden");
 

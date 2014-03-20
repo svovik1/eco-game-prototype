@@ -15,8 +15,10 @@ define(["app/model",
                 };
 
                 this.onGameOver = function(event) {
-                    view.gameOver(event);
-                    history.save(event.snapshot);
+                    if (history.enabled()){                        
+                        history.save(event.snapshot);
+                    }
+                    view.gameOver(event, history);
                 };
 
                 this.onDisaster = function(event) {
@@ -39,12 +41,14 @@ define(["app/model",
             $(document).ready(function() {
                 $('#starting').removeClass('preload');
                 translator.translateUI();
+                var player = new model.Player();
                 var game = new model.Game({
                     rules: rules,
                     cards: cards,
-                    disasters: disasters
+                    disasters: disasters,
+                    player: player
                 });
-                var welcome = new view.Welcome();
+                var welcome = new view.Welcome(player);
 
                 var v = new view.View(game);
                 
@@ -52,9 +56,12 @@ define(["app/model",
                 
                 $('.select-avatar .av-1').addClass('active');
                 $('.user-info .avatar').attr('class', 'avatar').addClass('av-1');
+                player.avatar("av-1");
                 
                 $('#starting input').change(function(){
-                    if ($('.username input').val() != '' && $('.select-avatar .avatar.active').length) {
+                    var username = $('.username input').val();
+                    if (username != '' && $('.select-avatar .avatar.active').length) {
+                        player.name(username);
                         $('.btn.start-game').removeClass('disabled');
                     } else {
                         $('.btn.start-game').addClass('disabled');
