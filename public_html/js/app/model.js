@@ -313,12 +313,12 @@ define([], function() {
 
         this.lose = function(reason) {
             gameOver = true;
-            notify("onGameOver", {result: "lose", reason: reason});
+            notify("onGameOver", {result: "lose", reason: reason, snapshot: self});
         };
 
         this.win = function(reason) {
             gameOver = true;
-            notify("onGameOver", {result: "win", reason: reason});
+            notify("onGameOver", {result: "win", reason: reason, snapshot: self});
         };
 
         this.addListener = function(listener) {

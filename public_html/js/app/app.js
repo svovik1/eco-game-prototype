@@ -1,5 +1,12 @@
-define(["app/model", "app/view", "app/rules", "app/disasters", "app/cards", "app/i18n-ui", "jquery"],
-        function(model, view, rules, disasters, cards, translator, $) {
+define(["app/model", 
+    "app/view", 
+    "app/rules", 
+    "app/disasters", 
+    "app/cards", 
+    "app/i18n-ui", 
+    "app/history",
+    "jquery"],
+        function(model, view, rules, disasters, cards, translator, history, $) {
 
             function GameListener(view) {
 
@@ -9,6 +16,7 @@ define(["app/model", "app/view", "app/rules", "app/disasters", "app/cards", "app
 
                 this.onGameOver = function(event) {
                     view.gameOver(event);
+                    history.save(event.snapshot);
                 };
 
                 this.onDisaster = function(event) {
