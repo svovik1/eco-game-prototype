@@ -67,6 +67,30 @@ define(["app/model",
                         $('.btn.start-game').addClass('disabled');
                     }
                 });
+                //var history = require("app/history");
+                var results = history.get(), lineResult;
+
+                if (results) {
+                    var statistic = '<div class="clearfix"><h2>'+t('Statistic')+'</h2>';
+                    for (var key in results) {
+                        var lineResult = results[key];
+                        statistic += '<div class="row '+lineResult.result+'">';
+                        statistic += makeSpan('<div class="avatar '+lineResult.player.avatar+'"></div>');
+                        statistic += makeSpan(lineResult.player.name + '<br />' + lineResult.player.region);
+                        var resources = '';
+                        for (var i in lineResult.resources) {
+                            resources += t(i) + ': ' + lineResult.resources[i] + '<br />';
+                        }
+                        statistic += makeSpan(resources);
+                        statistic += '</div>';
+                    }
+                    statistic += '</div>';
+                    $('#starting > .row').append(statistic);
+                }
+                
+                function makeSpan(html) {
+                    return '<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">'+html+'</div>';
+                }
                 
                 $('.start-game').on('click', function(){
                     if ($('.username input').val() != '' && $('.select-avatar .avatar.active').length) {
